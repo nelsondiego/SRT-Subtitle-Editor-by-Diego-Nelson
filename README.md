@@ -4,6 +4,8 @@ by Diego Nelson
 ## Overview
 A modern web application for editing and synchronizing SRT subtitle files with video content. Built with Next.js and React.
 
+![SRT Subtitle Editor Screenshot](/public/srt-suntitle-editor.jpg)
+
 ## Features
 
 - **Video Support**: Upload and play video files directly in the browser
