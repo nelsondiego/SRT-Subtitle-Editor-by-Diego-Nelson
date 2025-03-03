@@ -45,6 +45,8 @@ export interface VideoState {
   exportSubtitles: () => void;
   removeVideo: () => void;
   removeSubtitles: () => void;
+  deleteSubtitle: (id: number) => void;
+  updateSubtitle: (id: number, text: string) => void;
 }
 
 const initialState = {
@@ -289,6 +291,10 @@ export const useVideoStore = create<VideoState>()((set, get) => ({
       videoElement.pause();
       videoElement.removeAttribute('src');
       videoElement.load();
+      // Remove all event listeners by cloning and replacing the element
+      const newVideo = videoElement.cloneNode() as HTMLVideoElement;
+      videoElement.parentNode?.replaceChild(newVideo, videoElement);
+      set({ videoElement: null });
     }
     
     // Reset video-related state
@@ -311,5 +317,21 @@ export const useVideoStore = create<VideoState>()((set, get) => ({
       totalAdjustment: 0,
       subtitleFile: null
     });
+  },
+
+  deleteSubtitle: (id: number) => {
+    const { subtitles, currentTime } = get();
+    const newSubtitles = subtitles.filter(subtitle => subtitle.id !== id);
+    set({ subtitles: newSubtitles });
+    get().updateSubtitlesState(currentTime);
+  },
+
+  updateSubtitle: (id: number, text: string) => {
+    const { subtitles, currentTime } = get();
+    const newSubtitles = subtitles.map(subtitle =>
+      subtitle.id === id ? { ...subtitle, text } : subtitle
+    );
+    set({ subtitles: newSubtitles });
+    get().updateSubtitlesState(currentTime);
   },
 }));

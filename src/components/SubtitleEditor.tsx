@@ -1,9 +1,14 @@
 "use client";
 
-import { FileText, Upload, Loader2 } from 'lucide-react';
+import { FileText, Upload, Loader2, Pencil, Trash2 } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useVideoStore } from '@/lib/store';
 import { useEffect, useRef } from 'react';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from '@/components/ui/dialog';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
+import { DebouncedInput } from '@/components/ui/debounced-input';
+import { useDialogStore } from '@/lib/dialogStore';
 
 export function SubtitleEditor() {
   const { 
@@ -11,11 +16,25 @@ export function SubtitleEditor() {
     currentTime,
     loading,
     handleSubtitleFileUpload,
-    isPlaying
+    isPlaying,
+    deleteSubtitle,
+    updateSubtitle
   } = useVideoStore();
 
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const {
+    editDialogOpen,
+    editingSubtitle,
+    newSubtitleText,
+    deleteDialogOpen,
+    subtitleToDelete,
+    openEditDialog,
+    closeEditDialog,
+    setNewSubtitleText,
+    openDeleteDialog,
+    closeDeleteDialog
+  } = useDialogStore();
 
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const currentSubtitleRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -47,7 +66,7 @@ export function SubtitleEditor() {
       {subtitles.length === 0 && !loading && (
         <label className="flex flex-col items-center justify-center h-[100px] border-2 border-dashed rounded-lg m-2 cursor-pointer hover:bg-accent/50 transition-colors">
           <Upload className="w-6 h-6 mb-2 text-muted-foreground" />
-          <span className="text-sm font-medium">Drop SRT file or click to upload</span>
+          <span className="text-sm font-medium">Importar archivo SRT o haga clic para cargar</span>
           <input
             type="file"
             accept=".srt"
@@ -69,19 +88,81 @@ export function SubtitleEditor() {
                 <div
                   key={subtitle.id}
                   ref={isCurrent ? currentSubtitleRef : null}
-                  className={`p-2 rounded-md text-sm ${isCurrent ? 'bg-primary/10 border border-primary/20' : 'hover:bg-accent'}`}
+                  className={`p-2 rounded-md text-sm ${isCurrent ? 'bg-primary/10 border border-primary/20' : 'hover:bg-accent'} group relative`}
                 >
                   <div className="flex justify-between text-xs text-muted-foreground mb-1">
                     <span>{index + 1}</span>
-                    <span>{msToTime(subtitle.startTime)} → {msToTime(subtitle.endTime)}</span>
+                    <div className=" opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-8 w-8 mr-1"
+                      onClick={() => openEditDialog({ id: subtitle.id, text: subtitle.text })}
+                    >
+                      <Pencil className="h-4 w-4" />
+                    </Button>
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      className="h-8 w-8"
+                      onClick={() => openDeleteDialog(subtitle.id)}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  <span>{msToTime(subtitle.startTime)} → {msToTime(subtitle.endTime)}</span>
                   </div>
                   <p>{subtitle.text}</p>
+                  
                 </div>
               );
             })}
           </div>
         </ScrollArea>
       )}
+
+      <Dialog open={editDialogOpen} onOpenChange={closeEditDialog}>
+        <DialogContent>
+          <DialogDescription>Modifique el texto del subtítulo según sea necesario</DialogDescription>
+          <DialogHeader>
+            <DialogTitle>Editar Subtítulo</DialogTitle>
+          </DialogHeader>
+          <DebouncedInput
+            value={newSubtitleText}
+            onChange={setNewSubtitleText}
+            className="mt-2"
+            debounceTimeout={150}
+          />
+          <DialogFooter>
+            <Button onClick={closeEditDialog}>Cancelar</Button>
+            <Button onClick={() => {
+              if (editingSubtitle) {
+                updateSubtitle(editingSubtitle.id, newSubtitleText);
+                closeEditDialog();
+              }
+            }}>Guardar</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+      <AlertDialog open={deleteDialogOpen} onOpenChange={closeDeleteDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>¿Está seguro?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Esta acción no se puede deshacer. Eliminará permanentemente el subtítulo.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={closeDeleteDialog}>Cancelar</AlertDialogCancel>
+            <AlertDialogAction onClick={() => {
+              if (subtitleToDelete !== null) {
+                deleteSubtitle(subtitleToDelete);
+                closeDeleteDialog();
+              }
+            }}>Eliminar</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

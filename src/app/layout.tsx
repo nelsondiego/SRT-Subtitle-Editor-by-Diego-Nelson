@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     title: "SRT Subtitle Editor",
     description: "A modern web application for editing and synchronizing SRT subtitle files with video content",
     images: [{
-      url: "/srt-suntitle-editor.jpg",
+      url: "/srt-suntitle-editor-movies.jpg",
       width: 1200,
       height: 630,
       alt: "SRT Subtitle Editor Preview"
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "SRT Subtitle Editor",
     description: "A modern web application for editing and synchronizing SRT subtitle files with video content",
-    images: ["/srt-suntitle-editor.jpg"]
+    images: ["/srt-suntitle-editor-movies.jpg"]
   }
 };
 
