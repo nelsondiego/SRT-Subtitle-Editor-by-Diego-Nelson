@@ -6,6 +6,7 @@ import { useVideoStore } from '@/lib/store';
 export function VideoPlayer() {
   const { 
     file,
+    videoElement,
     setFile,
     setVideoElement,
     initializeVideo,
@@ -20,10 +21,12 @@ export function VideoPlayer() {
 
       element.addEventListener('timeupdate', handleTimeUpdateEvent);
       
-      // Always set the video element and initialize if there's a file
-      setVideoElement(element);
-      if (file) {
-        initializeVideo(file);
+      // Only initialize video if we haven't set the video element yet
+      if (!videoElement) {
+        setVideoElement(element);
+        if (file) {
+          initializeVideo(file);
+        }
       }
 
       return () => {
