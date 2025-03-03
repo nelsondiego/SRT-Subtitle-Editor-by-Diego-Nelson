@@ -1,8 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SRT Subtitle Editor
+by Diego Nelson
+
+## Overview
+A modern web application for editing and synchronizing SRT subtitle files with video content. Built with Next.js and React.
+
+## Features
+
+- **Video Support**: Upload and play video files directly in the browser
+- **SRT Subtitle Support**: Load and edit SRT subtitle files with multi-encoding support (UTF-8, ISO-8859-1, Windows-1252)
+- **Real-time Synchronization**: View subtitles in sync with video playback
+- **Time Adjustment**: Fine-tune subtitle timing with millisecond precision
+  - Adjust timing by ±1000ms, ±500ms, ±100ms, or ±50ms
+  - Reset timing adjustments with one click
+- **Modern Interface**: Clean, responsive design with dark mode support
+- **Export**: Save your adjusted subtitles back to SRT format
 
 ## Getting Started
 
-First, run the development server:
+First, install the dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
@@ -10,27 +35,34 @@ npm run dev
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to start editing subtitles.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## How to Use
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Click the video upload area to select a video file or drag and drop one
+2. Upload your SRT subtitle file in the left panel
+3. Use the playback controls to navigate through the video
+4. Adjust subtitle timing using the controls in the right panel
+5. Export your adjusted subtitles using the download button in the top-right corner
 
-## Learn More
+## Technologies
 
-To learn more about Next.js, take a look at the following resources:
+- [Next.js](https://nextjs.org) - React framework
+- [Zustand](https://zustand-demo.pmnd.rs) - State management
+- [Tailwind CSS](https://tailwindcss.com) - Styling
+- [Shadcn](https://ui.shadcn.com) - UI components
+- [Lucide](https://lucide.dev) - Icons
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contributing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Contributions are welcome! Feel free to submit issues and pull requests.
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+MIT License - feel free to use this project for personal or commercial purposes.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Author
+
+Diego Nelson - [GitHub](https://github.com/nelsondiego)

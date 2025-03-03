@@ -1,0 +1,17 @@
+{
+  "name": "SRT Subtitle Editor",
+  "short_name": "Subtitle Edit",
+  "description": "A modern web application for editing and synchronizing SRT subtitle files with video content",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "/subtitle-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
