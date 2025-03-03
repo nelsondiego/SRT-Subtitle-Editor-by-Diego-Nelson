@@ -1,6 +1,7 @@
 "use client";
 
 import { Download, FileVideo, FileText, X } from "lucide-react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { VideoPlayer } from "@/components/VideoPlayer";
 import { VideoControls } from "@/components/VideoControls";
@@ -26,7 +27,10 @@ export default function Home() {
       <div className="max-w-[1800px] mx-auto space-y-8">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-4xl font-bold tracking-tight">SRT Subtitle Editor</h1>
+            <div className="flex items-center gap-2">
+              <Image src="/subtitle-icon.svg" alt="SRT Editor Logo" width={32} height={32} />
+              <h1 className="text-4xl font-bold tracking-tight">SRT Subtitle Editor</h1>
+            </div>
           </div>
           <div className="flex items-center gap-2">
             <Button
@@ -47,7 +51,7 @@ export default function Home() {
           <div className="w-[30%] space-y-4">
             <div className="relative">
               {subtitles.length > 0 && (
-                <div className="flex items-center gap-2 mb-2 px-2">
+                <div className="flex items-center justify-between gap-2 mb-2 px-3 py-2 rounded-lg bg-muted">
                   <FileText className="w-4 h-4 text-primary" />
                   <p className="text-sm font-medium">
                     {subtitleFile ? subtitleFile.name : "Subtitles"}
@@ -55,11 +59,11 @@ export default function Home() {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="absolute top-0 right-0 h-8 w-8 hover:bg-destructive/10 hover:text-destructive"
+                    className="h-6 w-6 hover:bg-destructive/10 hover:text-destructive"
                     onClick={() => removeSubtitles()}
                     title="Remove Subtitles"
                   >
-                    <X className="h-4 w-4" />
+                    <X  />
                   </Button>
                 </div>
               )}
@@ -71,13 +75,13 @@ export default function Home() {
           <div className="w-[50%] space-y-4">
             <div className="relative">
               {file && (
-                <div className="flex items-center gap-2 mb-2 px-2">
+                <div className="flex items-center justify-between gap-2 mb-2 px-3 py-2 rounded-lg bg-muted">
                   <FileVideo className="w-4 h-4 text-primary" />
                   <p className="text-sm font-medium">{file.name}</p>
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="absolute top-0 right-0 h-8 w-8 hover:bg-destructive/10 hover:text-destructive"
+                    className="h-6 w-6 hover:bg-destructive/10 hover:text-destructive"
                     onClick={() => removeVideo()}
                     title="Remove Video"
                   >
