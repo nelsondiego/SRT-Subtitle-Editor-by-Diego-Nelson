@@ -1,6 +1,13 @@
 # SRT Subtitle Editor
 by Diego Nelson
 
+> 💖 **Keep the Coffee Flowing!** ☕  
+> Your support fuels improvements and new features! 🚀  
+> ¡Tu apoyo impulsa mejoras y nuevas funciones! ✨  
+> 
+> [☕ Support Project](https://www.buymeacoffee.com/diegonelson) • [☕ Apoyar Proyecto](https://www.buymeacoffee.com/diegonelson)
+
+
 ## Overview
 A modern web application for editing and synchronizing SRT subtitle files with video content. Built with Next.js and React.
 
@@ -67,4 +74,4 @@ MIT License - feel free to use this project for personal or commercial purposes.
 
 ## Author
 
-Diego Nelson - [GitHub](https://github.com/nelsondiego)
+Diego Nelson - [GitHub](https://github.com/nelsondiego) | [☕ Buy Me a Coffee](https://www.buymeacoffee.com/diegonelson) - ¡Apoya mi trabajo! Your support keeps the updates coming! 🚀
